@@ -13,12 +13,12 @@ class Posts {
     required this.body,
   });
 
-  factory Posts.fromJson(Map<String, dynamic> json) {
+  factory Posts.fromMap(Map<String, dynamic> map) {
     return Posts(
-      userId: json['userId']?.toInt() ?? 0,
-      id: json['id']?.toInt() ?? 0,
-      title: json['title'] ?? '',
-      body: json['body'] ?? '',
+      userId: map['userId']?.toInt() ?? 0,
+      id: map['id']?.toInt() ?? 0,
+      title: map['title'] ?? '',
+      body: map['body'] ?? '',
     );
   }
 }
