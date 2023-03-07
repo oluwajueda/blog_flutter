@@ -49,24 +49,57 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Column(
                         children: [
                           Container(
-                            decoration: BoxDecoration(color: whiteBackground),
-                            height: 300,
+                            decoration: BoxDecoration(
+                              color: whiteBackground,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(9)),
+                            ),
+                            height: 247,
                             width: width * 0.9,
-                            child: Column(
-                              children: [
-                                Text(post[i].title),
-                                Row(
-                                  children: [
-                                    Text(post[i].userId.toString()),
-                                    Text(formattedDate.toString())
-                                  ],
-                                )
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    post[i].title,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        color: Colors.black87),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(post[i].userId.toString()),
+                                      Spacer(),
+                                      Text(formattedDate.toString())
+                                    ],
+                                  ),
+                                  Text(post[i].body),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.9,
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor: buttonColor,
+                                                  textStyle: TextStyle(
+                                                    color: whiteBackground,
+                                                  )),
+                                              onPressed: () {},
+                                              child: const Text("Read more")),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: 15,
-                          )
+                          ),
                         ],
                       );
                     });
