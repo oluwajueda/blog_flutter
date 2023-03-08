@@ -1,9 +1,11 @@
 import 'package:blog_app/provider/favouriteprovider.dart';
+import 'package:blog_app/screens/PostDetailsScreen.dart';
 import 'package:blog_app/services/fetchPost_services.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:blog_app/utils/capitalizeEachWord.dart';
 
 class SearchPost extends SearchDelegate {
   PostServices _postService = PostServices();
@@ -40,6 +42,9 @@ class SearchPost extends SearchDelegate {
           if (snapshot.hasData) {
             return Column(
               children: [
+                SizedBox(
+                  height: 25,
+                ),
                 Expanded(
                   child: ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -62,31 +67,37 @@ class SearchPost extends SearchDelegate {
                                     Align(
                                       alignment: Alignment.topLeft,
                                       child: Text(
-                                        "${post?[i].title}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: Colors.black87,
-                                        ),
+                                        capitalizeWords(post![i].title),
+                                        style: headerFont,
                                       ),
                                     ),
                                     Row(
                                       children: [
-                                        Text(formattedDate.toString()),
+                                        Text(
+                                          formattedDate.toString(),
+                                          style: smallFont,
+                                        ),
                                         Spacer(),
                                         IconButton(
                                             onPressed: () {
                                               bookmark.favouritePost(post[i]);
                                             },
-                                            icon: bookmark.isExist(post![i])
-                                                ? Icon(Icons.bookmark)
-                                                : Icon(Icons
-                                                    .bookmark_outline_outlined))
+                                            icon: bookmark.isExist(post[i])
+                                                ? Icon(
+                                                    Icons.bookmark,
+                                                    color: faintBlackColor,
+                                                  )
+                                                : Icon(
+                                                    Icons
+                                                        .bookmark_outline_outlined,
+                                                    color: faintBlackColor,
+                                                  ))
                                       ],
                                     ),
                                     Text(
                                       post[i].body,
                                       textAlign: TextAlign.justify,
+                                      style: textFont,
                                     ),
                                     Expanded(
                                       child: Column(
@@ -102,7 +113,15 @@ class SearchPost extends SearchDelegate {
                                                     textStyle: TextStyle(
                                                       color: whiteBackground,
                                                     )),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PostDetailsScreen(
+                                                                  post: post[
+                                                                      i])));
+                                                },
                                                 child: const Text("Read more")),
                                           ),
                                         ],
@@ -124,7 +143,13 @@ class SearchPost extends SearchDelegate {
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
-          return const CircularProgressIndicator();
+          return const Center(
+              child: SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(buttonColor),
+                  )));
         });
   }
 

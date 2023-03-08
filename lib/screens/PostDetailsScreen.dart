@@ -1,4 +1,7 @@
 import 'package:blog_app/model/model.dart';
+
+import 'package:blog_app/utils/UpperCaseWords.dart';
+import 'package:blog_app/utils/capitalizeEachWord.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -13,6 +16,7 @@ class PostDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -39,8 +43,8 @@ class PostDetailsScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: Text(
-                post.title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                capitalizeWords(post.title),
+                style: headerFont,
               ),
             ),
             SizedBox(
@@ -50,15 +54,31 @@ class PostDetailsScreen extends StatelessWidget {
               children: [
                 Text(
                   formattedDate.toString(),
-                  style: TextStyle(color: faintBlackColor),
+                  style: smallFont,
                 ),
                 Spacer(),
                 Text(
                   "4 min read",
-                  style: TextStyle(color: faintBlackColor),
+                  style: smallFont,
                 ),
               ],
-            )
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              height: 1.5,
+              width: width * 0.95,
+              color: faintBlackColor,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              post.body.toCapitalized(),
+              style: bigtextFont,
+              textAlign: TextAlign.justify,
+            ),
           ],
         ),
       ),

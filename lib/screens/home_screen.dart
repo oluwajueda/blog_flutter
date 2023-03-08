@@ -2,6 +2,7 @@ import 'package:blog_app/model/model.dart';
 import 'package:blog_app/screens/PostDetailsScreen.dart';
 import 'package:blog_app/screens/searchscreen.dart';
 import 'package:blog_app/services/fetchPost_services.dart';
+import 'package:blog_app/utils/capitalizeEachWord.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:blog_app/widget/search_box.dart';
@@ -46,9 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Blog",
-            style: TextStyle(color: textColor),
+          title: Text(
+            "Krystal Digital",
+            style: navText,
           ),
           actions: [
             IconButton(
@@ -69,6 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.hasData) {
                 return Column(
                   children: [
+                    SizedBox(
+                      height: 25,
+                    ),
                     Expanded(
                       child: ListView.builder(
                           itemCount: snapshot.data.length,
@@ -82,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(9)),
                                   ),
-                                  height: 260,
+                                  height: 290,
                                   width: width * 0.9,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
@@ -91,19 +95,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            post[i].title,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              color: Colors.black87,
-                                            ),
+                                            capitalizeWords(post[i].title),
+                                            style: headerFont,
                                           ),
                                         ),
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(formattedDate.toString()),
-                                            Spacer(),
+                                            Text(formattedDate.toString(),
+                                                style: smallFont),
                                             IconButton(
+                                                color: faintBlackColor,
                                                 onPressed: () {
                                                   bookmark
                                                       .favouritePost(post[i]);
@@ -111,12 +114,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 icon: bookmark.isExist(post[i])
                                                     ? Icon(Icons.bookmark)
                                                     : Icon(Icons
-                                                        .bookmark_outline_outlined))
+                                                        .bookmark_outline_outlined)),
                                           ],
+                                        ),
+                                        Container(
+                                          height: 1.5,
+                                          width: width * 0.9,
+                                          color: faintBlackColor,
+                                        ),
+                                        SizedBox(
+                                          height: 15,
                                         ),
                                         Text(
                                           post[i].body,
                                           textAlign: TextAlign.justify,
+                                          style: textFont,
                                         ),
                                         Expanded(
                                           child: Column(
@@ -145,7 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           i])));
                                                     },
                                                     child: const Text(
-                                                        "Read more")),
+                                                      "Read more",
+                                                    )),
                                               ),
                                             ],
                                           ),
@@ -155,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 20,
+                                  height: 25,
                                 ),
                               ],
                             );
@@ -166,7 +179,14 @@ class _HomeScreenState extends State<HomeScreen> {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
-              return const CircularProgressIndicator();
+              return Center(
+                  child: SizedBox(
+                height: 60,
+                width: 60,
+                child: const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(buttonColor),
+                ),
+              ));
             }));
   }
 }

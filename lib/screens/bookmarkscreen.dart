@@ -1,3 +1,5 @@
+import 'package:blog_app/model/model.dart';
+import 'package:blog_app/screens/PostDetailsScreen.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +20,9 @@ class BookMarkScreen extends StatelessWidget {
     String formattedDate = DateFormat.yMd().format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Blog",
-          style: TextStyle(color: textColor),
+        title: Text(
+          "Recent Bookmarks",
+          style: navText,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -44,33 +46,27 @@ class BookMarkScreen extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.topLeft,
-                          child: Text(
-                            favourite.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Colors.black87,
-                            ),
-                          ),
+                          child: Text(favourite.title, style: headerFont),
                         ),
                         Row(
                           children: [
-                            Text(formattedDate.toString()),
+                            Text(
+                              formattedDate.toString(),
+                              style: smallFont,
+                            ),
                             Spacer(),
-                            // IconButton(
-                            //     onPressed: () {
-                            //       bookmark.favouritePost(post[i]);
-                            //     },
-                            //     icon: bookmark.isExist(post[i])
-                            //         ? Icon(Icons.bookmark)
-                            //         : Icon(Icons.bookmark_outline_outlined)
-
-                            //         )
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: faintBlackColor,
+                                ))
                           ],
                         ),
                         Text(
                           favourite.body,
                           textAlign: TextAlign.justify,
+                          style: textFont,
                         ),
                         Expanded(
                           child: Column(
@@ -84,7 +80,14 @@ class BookMarkScreen extends StatelessWidget {
                                         textStyle: TextStyle(
                                           color: whiteBackground,
                                         )),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PostDetailsScreen(
+                                                      post: favourite)));
+                                    },
                                     child: const Text("Read more")),
                               ),
                             ],
@@ -95,7 +98,7 @@ class BookMarkScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
               ],
             );
