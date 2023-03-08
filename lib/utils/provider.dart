@@ -18,6 +18,12 @@ class Favorite extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isExist(Posts post) {
+    final isContain = _favorite.contains(post);
+
+    return isContain;
+  }
+
   void clearFavoritePost() {
     _favorite = [];
 

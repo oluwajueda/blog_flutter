@@ -1,12 +1,14 @@
 import 'package:blog_app/model/model.dart';
 import 'package:blog_app/services/fetchPost_services.dart';
 import 'package:blog_app/utils/colors.dart';
+import 'package:blog_app/utils/provider.dart';
 import 'package:blog_app/widget/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,14 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool bookmarked = false;
+    // bool bookmarked = false;
 
-    setBookMark() {
-      setState(() {
-        bookmarked = !bookmarked;
-      });
-      print("Hello");
-    }
+    // setBookMark() {
+    //   setState(() {
+    //     bookmarked = !bookmarked;
+    //   });
+    //   print("Hello");
+    // }
+
+    final bookmark = Provider.of<Favorite>(context);
 
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -85,8 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Text(formattedDate.toString()),
                                       Spacer(),
                                       IconButton(
-                                          onPressed: setBookMark,
-                                          icon: bookmarked
+                                          onPressed: () {
+                                            bookmark.favouritePost(post[i]);
+                                          },
+                                          icon: bookmark.isExist(post[i])
                                               ? Icon(Icons.bookmark)
                                               : Icon(Icons
                                                   .bookmark_outline_outlined))

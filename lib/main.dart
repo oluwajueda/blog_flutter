@@ -1,3 +1,4 @@
+import 'package:blog_app/bottombar/bottombar.dart';
 import 'package:blog_app/screens/home_screen.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:blog_app/utils/provider.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: backgroundColor,
         ),
-        home: const HomeScreen(),
+        home: const BottomBar(),
       ),
     );
   }
