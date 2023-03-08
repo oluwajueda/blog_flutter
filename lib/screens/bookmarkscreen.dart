@@ -1,5 +1,5 @@
 import 'package:blog_app/utils/colors.dart';
-import 'package:blog_app/utils/provider.dart';
+import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

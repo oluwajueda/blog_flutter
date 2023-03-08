@@ -1,7 +1,10 @@
+import 'package:blog_app/model/model.dart';
+import 'package:blog_app/provider/post_provider.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 
 class SearchForm extends StatefulWidget {
   const SearchForm({super.key});
@@ -11,6 +14,16 @@ class SearchForm extends StatefulWidget {
 }
 
 class _SearchFormState extends State<SearchForm> {
+  @override
+  void initState() {
+    final allPost = Provider.of<PostProvider>(context, listen: false).posts;
+    _foundPosts = allPost;
+
+    super.initState();
+  }
+
+  List<Posts> _foundPosts = [];
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

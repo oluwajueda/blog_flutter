@@ -24,7 +24,6 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const SearchScreen(),
     const BookMarkScreen(),
   ];
 
@@ -67,24 +66,24 @@ class _BottomBarState extends State<BottomBar> {
                           ),
                   ),
                   label: ""),
+              // BottomNavigationBarItem(
+              //     icon: Padding(
+              //       padding: const EdgeInsets.only(top: 8),
+              //       child: _page == 1
+              //           ? Icon(
+              //               Icons.search_rounded,
+              //               color: buttonColor,
+              //             )
+              //           : Icon(
+              //               Icons.search_outlined,
+              //               color: buttonColor,
+              //             ),
+              //     ),
+              //     label: ""),
               BottomNavigationBarItem(
                   icon: Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: _page == 1
-                        ? Icon(
-                            Icons.search_rounded,
-                            color: buttonColor,
-                          )
-                        : Icon(
-                            Icons.search_outlined,
-                            color: buttonColor,
-                          ),
-                  ),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: _page == 2
                         ? Icon(
                             Icons.bookmark,
                             color: buttonColor,

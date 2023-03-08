@@ -1,7 +1,9 @@
 import 'package:blog_app/model/model.dart';
+import 'package:blog_app/screens/PostDetailsScreen.dart';
+import 'package:blog_app/screens/searchscreen.dart';
 import 'package:blog_app/services/fetchPost_services.dart';
 import 'package:blog_app/utils/colors.dart';
-import 'package:blog_app/utils/provider.dart';
+import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:blog_app/widget/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -48,6 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
             "Blog",
             style: TextStyle(color: textColor),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: SearchPost());
+                },
+                icon: Icon(
+                  Icons.search_sharp,
+                  color: buttonColor,
+                ))
+          ],
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
@@ -57,10 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.hasData) {
                 return Column(
                   children: [
-                    SearchForm(),
-                    SizedBox(
-                      height: 20,
-                    ),
                     Expanded(
                       child: ListView.builder(
                           itemCount: snapshot.data.length,
@@ -127,7 +135,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               color:
                                                                   whiteBackground,
                                                             )),
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  PostDetailsScreen(
+                                                                      post: post[
+                                                                          i])));
+                                                    },
                                                     child: const Text(
                                                         "Read more")),
                                               ),
