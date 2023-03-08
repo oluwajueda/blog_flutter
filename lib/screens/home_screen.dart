@@ -55,81 +55,98 @@ class _HomeScreenState extends State<HomeScreen> {
             future: futurePost,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int i) {
-                      var post = snapshot.data;
-                      return Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: whiteBackground,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(9)),
-                            ),
-                            height: 260,
-                            width: width * 0.9,
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      post[i].title,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
+                return Column(
+                  children: [
+                    SearchForm(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int i) {
+                            var post = snapshot.data;
+                            return Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: whiteBackground,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(9)),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(formattedDate.toString()),
-                                      Spacer(),
-                                      IconButton(
-                                          onPressed: () {
-                                            bookmark.favouritePost(post[i]);
-                                          },
-                                          icon: bookmark.isExist(post[i])
-                                              ? Icon(Icons.bookmark)
-                                              : Icon(Icons
-                                                  .bookmark_outline_outlined))
-                                    ],
-                                  ),
-                                  Text(
-                                    post[i].body,
-                                    textAlign: TextAlign.justify,
-                                  ),
-                                  Expanded(
+                                  height: 260,
+                                  width: width * 0.9,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        SizedBox(
-                                          width: width * 0.9,
-                                          child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor: buttonColor,
-                                                  textStyle: TextStyle(
-                                                    color: whiteBackground,
-                                                  )),
-                                              onPressed: () {},
-                                              child: const Text("Read more")),
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Text(
+                                            post[i].title,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              color: Colors.black87,
+                                            ),
+                                          ),
                                         ),
+                                        Row(
+                                          children: [
+                                            Text(formattedDate.toString()),
+                                            Spacer(),
+                                            IconButton(
+                                                onPressed: () {
+                                                  bookmark
+                                                      .favouritePost(post[i]);
+                                                },
+                                                icon: bookmark.isExist(post[i])
+                                                    ? Icon(Icons.bookmark)
+                                                    : Icon(Icons
+                                                        .bookmark_outline_outlined))
+                                          ],
+                                        ),
+                                        Text(
+                                          post[i].body,
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              SizedBox(
+                                                width: width * 0.9,
+                                                child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            backgroundColor:
+                                                                buttonColor,
+                                                            textStyle:
+                                                                TextStyle(
+                                                              color:
+                                                                  whiteBackground,
+                                                            )),
+                                                    onPressed: () {},
+                                                    child: const Text(
+                                                        "Read more")),
+                                              ),
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      );
-                    });
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
+                  ],
+                );
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }

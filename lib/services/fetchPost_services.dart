@@ -11,8 +11,16 @@ class PostServices {
         .get(Uri.parse(uri), headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((res) => Posts.fromMap(res)).toList();
+      List jsonResponse = json.decode(response.body) as List;
+      final post = jsonResponse.map((res) {
+        return Posts(
+          userId: res["userId"],
+          id: res["id"],
+          title: res["title"],
+          body: res["body"],
+        );
+      }).toList();
+      return post;
     } else {
       throw Exception("error occured");
     }
