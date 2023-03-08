@@ -28,6 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool bookmarked = false;
+
+    setBookMark() {
+      setState(() {
+        bookmarked = !bookmarked;
+      });
+      print("Hello");
+    }
+
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
@@ -54,27 +63,39 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(9)),
                             ),
-                            height: 247,
+                            height: 260,
                             width: width * 0.9,
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Column(
                                 children: [
-                                  Text(
-                                    post[i].title,
-                                    style: TextStyle(
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      post[i].title,
+                                      style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16,
-                                        color: Colors.black87),
+                                        color: Colors.black87,
+                                      ),
+                                    ),
                                   ),
                                   Row(
                                     children: [
-                                      Text(post[i].userId.toString()),
+                                      Text(formattedDate.toString()),
                                       Spacer(),
-                                      Text(formattedDate.toString())
+                                      IconButton(
+                                          onPressed: setBookMark,
+                                          icon: bookmarked
+                                              ? Icon(Icons.bookmark)
+                                              : Icon(Icons
+                                                  .bookmark_outline_outlined))
                                     ],
                                   ),
-                                  Text(post[i].body),
+                                  Text(
+                                    post[i].body,
+                                    textAlign: TextAlign.justify,
+                                  ),
                                   Expanded(
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -98,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 20,
                           ),
                         ],
                       );
