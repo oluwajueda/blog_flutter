@@ -1,5 +1,6 @@
 import 'package:blog_app/model/model.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Favorite extends ChangeNotifier {
   List<Posts> _favorite = [];
@@ -10,7 +11,7 @@ class Favorite extends ChangeNotifier {
     final isContain = _favorite.contains(post);
 
     if (isContain) {
-      return;
+      _favorite.remove(post);
     } else {
       _favorite.add(post);
     }

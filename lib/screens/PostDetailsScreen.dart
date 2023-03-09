@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PostDetailsScreen extends StatelessWidget {
   PostDetailsScreen({super.key, required this.post});
@@ -18,6 +19,7 @@ class PostDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: whiteBackground,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -51,12 +53,21 @@ class PostDetailsScreen extends StatelessWidget {
               height: 15,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: ClipOval(
+                        child: Image.asset("assets/images/randomPicture.jpg")),
+                  ),
+                ),
                 Text(
                   formattedDate.toString(),
                   style: smallFont,
                 ),
-                Spacer(),
                 Text(
                   "4 min read",
                   style: smallFont,
@@ -64,7 +75,7 @@ class PostDetailsScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 15,
+              height: 5,
             ),
             Container(
               height: 1.5,
@@ -79,6 +90,23 @@ class PostDetailsScreen extends StatelessWidget {
               style: bigtextFont,
               textAlign: TextAlign.justify,
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                  onPressed: () {
+                    final title = post.title;
+                    final body = post.body;
+
+                    Share.share(body, subject: title);
+                  },
+                  icon: Icon(
+                    Icons.share,
+                    color: buttonColor,
+                  )),
+            )
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:blog_app/model/model.dart';
 import 'package:blog_app/screens/PostDetailsScreen.dart';
+import 'package:blog_app/utils/capitalizeEachWord.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ class BookMarkScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorite = Provider.of<Favorite>(context);
-    final favorites = favorite.favourite;
+    final provider = Provider.of<Favorite>(context);
+    final favorites = provider.favourite;
 
     double width = MediaQuery.of(context).size.width;
     String formattedDate = DateFormat.yMd().format(DateTime.now());
@@ -38,7 +39,7 @@ class BookMarkScreen extends StatelessWidget {
                     color: whiteBackground,
                     borderRadius: BorderRadius.all(Radius.circular(9)),
                   ),
-                  height: 260,
+                  height: 300,
                   width: width * 0.9,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -46,22 +47,40 @@ class BookMarkScreen extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.topLeft,
-                          child: Text(favourite.title, style: headerFont),
+                          child: Text(capitalizeWords(favourite.title),
+                              style: headerFont),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              child: SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: ClipOval(
+                                    child: Image.asset(
+                                        "assets/images/randomPicture.jpg")),
+                              ),
+                            ),
                             Text(
                               formattedDate.toString(),
                               style: smallFont,
                             ),
-                            Spacer(),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  provider.favouritePost(favourite);
+                                },
                                 icon: Icon(
                                   Icons.delete,
                                   color: faintBlackColor,
                                 ))
                           ],
+                        ),
+                        Container(
+                          height: 1.5,
+                          width: width * 0.9,
+                          color: faintBlackColor,
                         ),
                         Text(
                           favourite.body,

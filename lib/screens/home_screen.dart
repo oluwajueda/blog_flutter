@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(9)),
                                   ),
-                                  height: 290,
+                                  height: 300,
                                   width: width * 0.9,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
@@ -103,6 +103,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
+                                            CircleAvatar(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              child: SizedBox(
+                                                width: 30,
+                                                height: 30,
+                                                child: ClipOval(
+                                                    child: Image.asset(
+                                                        "assets/images/randomPicture.jpg")),
+                                              ),
+                                            ),
                                             Text(formattedDate.toString(),
                                                 style: smallFont),
                                             IconButton(
@@ -110,12 +121,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 onPressed: () {
                                                   bookmark
                                                       .favouritePost(post[i]);
+                                                  print(post[i]);
                                                 },
                                                 icon: bookmark.isExist(post[i])
                                                     ? Icon(Icons.bookmark)
                                                     : Icon(Icons
                                                         .bookmark_outline_outlined)),
                                           ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
                                         ),
                                         Container(
                                           height: 1.5,

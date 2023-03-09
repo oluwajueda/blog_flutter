@@ -58,7 +58,7 @@ class SearchPost extends SearchDelegate {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(9)),
                               ),
-                              height: 260,
+                              height: 300,
                               width: width * 0.9,
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -73,6 +73,16 @@ class SearchPost extends SearchDelegate {
                                     ),
                                     Row(
                                       children: [
+                                        CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          child: SizedBox(
+                                            width: 30,
+                                            height: 30,
+                                            child: ClipOval(
+                                                child: Image.asset(
+                                                    "assets/images/randomPicture.jpg")),
+                                          ),
+                                        ),
                                         Text(
                                           formattedDate.toString(),
                                           style: smallFont,
@@ -93,6 +103,11 @@ class SearchPost extends SearchDelegate {
                                                     color: faintBlackColor,
                                                   ))
                                       ],
+                                    ),
+                                    Container(
+                                      height: 1.5,
+                                      width: width * 0.9,
+                                      color: faintBlackColor,
                                     ),
                                     Text(
                                       post[i].body,
