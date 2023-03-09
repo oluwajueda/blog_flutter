@@ -7,6 +7,10 @@ const textColor = Color.fromRGBO(0, 0, 0, 1);
 const whiteBackground = Color.fromRGBO(255, 255, 255, 1);
 const lightColor = Color(0xFFc8c8c8);
 const faintBlackColor = Color.fromRGBO(200, 200, 200, 1);
+var deleteFaintBlackColor = Color.fromRGBO(200, 200, 200, 1);
+var deleteBlackColor = Color.fromRGBO(0, 0, 0, 1);
+var bookmarkFaintColor = Color.fromRGBO(200, 200, 200, 1);
+var bookmarkBlackColor = Color.fromRGBO(0, 0, 0, 1);
 
 final textFont = GoogleFonts.roboto(
   textStyle: const TextStyle(
@@ -49,5 +53,20 @@ final navText = GoogleFonts.roboto(
       fontSize: 20,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic,
+      color: Colors.black),
+);
+final shortlistFont = GoogleFonts.roboto(
+  textStyle: const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    color: Color.fromRGBO(215, 60, 16, 1),
+  ),
+);
+final profileFont = GoogleFonts.roboto(
+  textStyle: const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      fontStyle: FontStyle.normal,
       color: Colors.black),
 );

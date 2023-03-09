@@ -4,10 +4,14 @@ import 'package:blog_app/screens/home_screen.dart';
 import 'package:blog_app/utils/colors.dart';
 import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+Future<void> main() async {
+  await Hive.initFlutter();
+
+  await Hive.openBox("bookmark");
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => Favorite()),
   ], child: const MyApp()));

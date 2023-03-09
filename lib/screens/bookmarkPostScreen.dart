@@ -1,86 +1,68 @@
-import 'package:blog_app/model/model.dart';
+import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:blog_app/screens/PostDetailsScreen.dart';
-import 'package:blog_app/screens/bookmarkscreen.dart';
-import 'package:blog_app/screens/searchscreen.dart';
-import 'package:blog_app/services/fetchPost_services.dart';
 import 'package:blog_app/services/shared_prefs.dart';
 import 'package:blog_app/utils/capitalizeEachWord.dart';
 import 'package:blog_app/utils/colors.dart';
-import 'package:blog_app/provider/favouriteprovider.dart';
 import 'package:blog_app/utils/snackbar.dart';
-import 'package:blog_app/widget/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class BookMarkPostScreen extends StatefulWidget {
+  const BookMarkPostScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<BookMarkPostScreen> createState() => _BookMarkPostScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  late Future futurePost;
-
+class _BookMarkPostScreenState extends State<BookMarkPostScreen> {
   @override
   void initState() {
     super.initState();
-    futurePost = PostServices().fetchPost(context: context);
   }
 
-  String formattedDate = DateFormat.yMd().format(DateTime.now());
+  Future getBook() {
+    return BookmarkServices()
+        .getPostsFromSharedPreferences("savedPost")
+        .then((value) => value);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // bool bookmarked = false;
-
-    // setBookMark() {
-    //   setState(() {
-    //     bookmarked = !bookmarked;
-    //   });
-    //   print("Hello");
-    // }
-
-    // final bookmark = Provider.of<Favorite>(context);
-
     double width = MediaQuery.of(context).size.width;
+    String formattedDate = DateFormat.yMd().format(DateTime.now());
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Krystal Digital",
+            "Recent Bookmarks",
             style: navText,
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showSearch(context: context, delegate: SearchPost());
-                },
-                icon: Icon(
-                  Icons.search_sharp,
-                  color: buttonColor,
-                ))
-          ],
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: FutureBuilder(
-            future: futurePost,
+            future: getBook(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                var data = snapshot.data;
                 return Column(
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: 10,
+                    ),
+                    Text(
+                      "Your bookmarked posts will be found here.",
+                      style: bigtextFont,
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: snapshot.data.length,
+                          itemCount: data.length,
                           itemBuilder: (BuildContext context, int i) {
-                            var post = snapshot.data;
+                            var post = snapshot.data[i];
                             return Column(
                               children: [
                                 Container(
@@ -98,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            capitalizeWords(post[i].title),
+                                            capitalizeWords(post.title),
                                             style: headerFont,
                                           ),
                                         ),
@@ -122,17 +104,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                             IconButton(
                                                 color: faintBlackColor,
                                                 onPressed: () async {
-                                                  final Posts post =
-                                                      snapshot.data[i];
                                                   await BookmarkServices()
-                                                      .savePostsToSharedPreferences(
-                                                          "savedPost", post);
+                                                      .clearPostAtIndex(
+                                                          i, "savedPost");
+
+                                                  var futurePost =
+                                                      BookmarkServices()
+                                                          .getPostsFromSharedPreferences(
+                                                              "savePost");
+
+                                                  setState(() {
+                                                    post = futurePost;
+                                                  });
 
                                                   showSnacBar(context,
-                                                      "saved Successfully");
+                                                      "Bookmarked Post Deleted");
                                                 },
-                                                icon: Icon(Icons
-                                                    .bookmark_outline_outlined)),
+                                                icon: Icon(Icons.delete)),
                                           ],
                                         ),
                                         SizedBox(
@@ -147,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 15,
                                         ),
                                         Text(
-                                          post[i].body,
+                                          post.body,
                                           textAlign: TextAlign.justify,
                                           style: textFont,
                                         ),

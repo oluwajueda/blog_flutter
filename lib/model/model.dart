@@ -21,4 +21,17 @@ class Posts {
       body: map['body'] ?? '',
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'userId': userId,
+      'id': id,
+      'title': title,
+      'body': body,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Posts.fromJson(String source) => Posts.fromMap(json.decode(source));
 }

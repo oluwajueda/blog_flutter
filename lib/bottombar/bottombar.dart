@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:blog_app/screens/ProfileScreen.dart';
+import 'package:blog_app/screens/bookmarkPostScreen.dart';
 import 'package:blog_app/screens/bookmarkscreen.dart';
 import 'package:blog_app/screens/home_screen.dart';
 import 'package:blog_app/screens/searchscreen.dart';
@@ -24,7 +26,8 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const BookMarkScreen(),
+    const BookMarkPostScreen(),
+    const ProfileScreen()
   ];
 
   void updatePage(int page) {
@@ -66,20 +69,6 @@ class _BottomBarState extends State<BottomBar> {
                           ),
                   ),
                   label: ""),
-              // BottomNavigationBarItem(
-              //     icon: Padding(
-              //       padding: const EdgeInsets.only(top: 8),
-              //       child: _page == 1
-              //           ? Icon(
-              //               Icons.search_rounded,
-              //               color: buttonColor,
-              //             )
-              //           : Icon(
-              //               Icons.search_outlined,
-              //               color: buttonColor,
-              //             ),
-              //     ),
-              //     label: ""),
               BottomNavigationBarItem(
                   icon: Padding(
                     padding: const EdgeInsets.only(top: 8),
@@ -93,8 +82,23 @@ class _BottomBarState extends State<BottomBar> {
                             color: buttonColor,
                           ),
                   ),
-                  label: "")
+                  label: ""),
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: _page == 2
+                        ? Icon(
+                            Icons.person,
+                            color: buttonColor,
+                          )
+                        : Icon(
+                            Icons.person_outlined,
+                            color: buttonColor,
+                          ),
+                  ),
+                  label: ""),
             ],
+
             onTap: updatePage,
           ),
         ),

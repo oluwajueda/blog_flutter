@@ -29,14 +29,6 @@ class PostDetailsScreen extends StatelessWidget {
             Navigator.pop(context),
           },
         ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.bookmark,
-                color: Colors.black,
-              ))
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
