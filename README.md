@@ -13,7 +13,7 @@ This project is created to build a mobile blog application using flutter framewo
     https://jsonplaceholder.typicode.com/posts)
 ## Tech Stack
 
-**Client:** Flutter, provider
+**Client:** Dart, Flutter, provider
 
 **Server:** Api from jsonplaceholder website
 
