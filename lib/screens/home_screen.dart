@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    futurePost = PostServices().fetchPost();
+    futurePost = PostServices().fetchPost(context: context);
   }
 
   String formattedDate = DateFormat.yMd().format(DateTime.now());

@@ -16,13 +16,8 @@ class SearchForm extends StatefulWidget {
 class _SearchFormState extends State<SearchForm> {
   @override
   void initState() {
-    final allPost = Provider.of<PostProvider>(context, listen: false).posts;
-    _foundPosts = allPost;
-
     super.initState();
   }
-
-  List<Posts> _foundPosts = [];
 
   @override
   Widget build(BuildContext context) {

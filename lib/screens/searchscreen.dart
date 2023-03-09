@@ -37,7 +37,7 @@ class SearchPost extends SearchDelegate {
     double width = MediaQuery.of(context).size.width;
     String formattedDate = DateFormat.yMd().format(DateTime.now());
     return FutureBuilder(
-        future: _postService.fetchPost(query: query),
+        future: _postService.fetchPost(context: context, query: query),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(
