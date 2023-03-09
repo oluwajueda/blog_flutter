@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => Favorite()),
-    ChangeNotifierProvider(create: (context) => PostProvider())
   ], child: const MyApp()));
 }
 

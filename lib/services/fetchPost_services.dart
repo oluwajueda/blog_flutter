@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:blog_app/model/model.dart';
+import 'package:blog_app/utils/snackbar.dart';
+import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 
 const uri = 'https://jsonplaceholder.typicode.com/posts';
@@ -8,7 +10,8 @@ const uri = 'https://jsonplaceholder.typicode.com/posts';
 class PostServices {
   var jsonResponse = [];
   List<Posts> post = [];
-  Future<List<Posts>> fetchPost({String? query}) async {
+  Future<List<Posts>> fetchPost(
+      {required BuildContext context, String? query}) async {
     try {
       final response = await http
           .get(Uri.parse(uri), headers: {"Content-Type": "application/json"});
@@ -24,10 +27,10 @@ class PostServices {
               .toList();
         }
       } else {
-        throw Exception("error occured");
+        showSnacBar(context, "an error occured");
       }
     } on Exception catch (e) {
-      print("error: $e");
+      showSnacBar(context, e.toString());
     }
 
     return post;
