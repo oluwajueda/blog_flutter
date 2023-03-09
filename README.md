@@ -1,7 +1,7 @@
 
 # A Blog App Built With Flutter
 
-This project is created to build a mobile blog application using flutter framework. It allows users to read blog post and bookmark their favorite posts.
+This project is created to build a mobile blog application using flutter framework. It allows users to read blog posts and bookmark their favorite posts.
 
 
 ## Acknowledgements
