@@ -26,13 +26,15 @@ class PostServices {
                   (e) => e.title.toLowerCase().contains((query.toLowerCase())))
               .toList();
         }
-      } else if (response.statusCode == 400) {
+      }
+      if (response.statusCode == 400) {
         showSnacBar(context, "bad request");
-      } else if (response.statusCode == 500) {
+      }
+      if (response.statusCode == 500) {
         showSnacBar(context, "can not load data");
       }
     } on Exception catch (e) {
-      showSnacBar(context, e.toString());
+      showSnacBar(context, "${e.toString()}, connect to internet");
     }
 
     return post;
